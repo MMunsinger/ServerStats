@@ -3,9 +3,9 @@
 
 ## Get cpu name
 get_cpu_name() {
-echo "##### CPU INFO #####"
-cat /proc/cpuinfo | awk -F: 'NR==5 {printf "Cpu Name: %s\n", $2}'
-echo
+    echo "##### CPU INFO #####"
+    cat /proc/cpuinfo | awk -F: 'NR==5 {printf "Cpu Name: %s\n", $2}'
+    echo
 }
 
 
