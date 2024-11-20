@@ -31,12 +31,17 @@ get_disk_usage() {
 }
 
 ## Top 5 Proc by CPU
-top_cpu_processes() {
-    echo "##### Top 5 CPU Processes #####"
-    ps -eo pid,comm,%mem --sort=-%mem | head -6
+get_top_cpu_processes() {
+    echo "### Top 5 Processes by CPU Usage ###"
+    ps -eo pid,comm,%cpu --sort=-%cpu | head -6
     echo
 }
 
+get_top_memory_processes() {
+    echo "### Top 5 Processes by Memory Usage ###"
+    ps -eo pid,comm,%mem --sort=-%mem | head -6
+    echo
+}
 
 # Execute functions
 echo "Server Performance Stats"
@@ -45,3 +50,5 @@ get_cpu_name
 get_cpu_usage
 get_mem_usage
 get_disk_usage
+get_top_cpu_processes
+get_top_memory_processes
