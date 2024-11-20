@@ -1,14 +1,14 @@
 #!/bin/bash
 
 
-## Get cpu name
+## Get Cpu Name
 get_cpu_name() {
     echo "##### CPU INFO #####"
     cat /proc/cpuinfo | awk -F: 'NR==5 {printf "Cpu Name: %s\n", $2}'
     echo
 }
 
-
+## Get CPU Usage
 get_cpu_usage() {
     echo "##### CPU USAGE #####"
     mpstat | awk 'NR==4 {printf "User: %.2f%%, System: %.2f%%, IDLE: %.2f%%\n", $3, $5, $12}'
@@ -26,7 +26,6 @@ get_mem_usage() {
 get_disk_usage() {
     echo "##### Disk Usage #####"
     df -h --total | awk '/^total/ {printf "Used: %s, Avail: %s, Total: %s, Usage: %i%%\n", $3, $4, $2, $5}' 
-    ##df -h --total | awk '(/Filesystem/ || /total/) {printf "%s  %s  %s \n", $3, $4, $2, $5}'      //Alternative approach but harder to read programmatically
     echo
 }
 
@@ -43,6 +42,17 @@ get_top_memory_processes() {
     echo
 }
 
+ec_INFO() {
+    echo "##### User/System INFO #####"
+    whoami | awk {'printf "Current user: %s\n", $0'}
+    hostname | awk {'printf "Hostname: %s\n", $0'}
+    hostname -i | awk {'printf "Host IP: %s\n", $0'}
+    uptime| awk {'printf "Uptime: %s\n",$3'}
+    hostnamectl | awk '/Operating System/'
+}
+
+
+
 # Execute functions
 echo "Server Performance Stats"
 echo "========================="
@@ -52,3 +62,5 @@ get_mem_usage
 get_disk_usage
 get_top_cpu_processes
 get_top_memory_processes
+echo "-----Extra Credits!-----"
+ec_INFO
