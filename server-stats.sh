@@ -30,9 +30,6 @@ get_disk_usage() {
     echo
 }
 
-echo "##### Disk Usage #####"
-df -h --total | awk '(/Filesystem/ || /total/) {printf "%s  %s  %s \n", $3, $4, $2, $5}'
-
 ## Top 5 Proc by CPU
 top_cpu_processes() {
     echo "##### Top 5 CPU Processes #####"
