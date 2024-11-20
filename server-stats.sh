@@ -26,8 +26,12 @@ get_mem_usage() {
 get_disk_usage() {
     echo "##### Disk Usage #####"
     df -h --total | awk '/^total/ {printf "Used: %s, Avail: %s, Total: %s, Usage: %i%%\n", $3, $4, $2, $5}' 
+    ##df -h --total | awk '(/Filesystem/ || /total/) {printf "%s  %s  %s \n", $3, $4, $2, $5}'      //Alternative approach but harder to read programmatically
     echo
 }
+
+echo "##### Disk Usage #####"
+df -h --total | awk '(/Filesystem/ || /total/) {printf "%s  %s  %s \n", $3, $4, $2, $5}'
 
 ## Top 5 Proc by CPU
 top_cpu_processes() {
@@ -40,3 +44,7 @@ top_cpu_processes() {
 # Execute functions
 echo "Server Performance Stats"
 echo "========================="
+get_cpu_name
+get_cpu_usage
+get_mem_usage
+get_disk_usage
